@@ -10,6 +10,7 @@ import { CAMPSITES } from '../shared/campsites';
 import { COMMENTS } from '../shared/comments';
 import { PARTNERS } from '../shared/partners';
 import { PROMOTIONS } from '../shared/promotions';
+import { isCompositeComponent } from 'react-dom/test-utils';
 
 class Main extends Component {
   constructor(props) {
@@ -34,6 +35,16 @@ class Main extends Component {
         />
       );
     };
+
+    const CampsiteWithId = ({ match }) => {
+      return (
+        <CampsiteInfo
+          campsite={this.state.campsites.filter(campsite => campsite.id === +match.params.campsiteId)[0]}
+          comments={this.state.comments.filter(comment => comment.campsiteId === +match.params.campsiteId)}
+        />
+      );
+    };
+
     //acts as a switch statement, it looks for a matching path which in this case is home
     return (
       <div>
@@ -42,6 +53,7 @@ class Main extends Component {
           <Route path='/home' component={HomePage} />
           <Route exact path='/directory' render={() => <Directory campsites={this.state.campsites} />
           } />
+          <Route path='/directory/:campsiteId' component={CampsiteWithId} />
           <Route exact path='/contactus' component={Contact} />
           <Redirect to="/home" />
         </Switch>
