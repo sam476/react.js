@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Card, CardImg, CardText, CardBody, CardTitle, Breadcrumb, BreadcrumbItem, Button, Label, Modal, ModalHeader, ModalBody } from 'reactstrap';
+import { Card, CardImg, CardText, CardBody, Breadcrumb, BreadcrumbItem, Button, Label, Modal, ModalHeader, ModalBody } from 'reactstrap';
 import { Link } from 'react-router-dom';
 import { Control, LocalForm, Errors } from 'react-redux-form';
 import { Loading } from './LoadingComponent';
@@ -103,6 +103,10 @@ function RenderCampsite({ campsite }) {
       in
       transformProps={{
         exitTransform: 'scale(0.5) translateY(-50%)'
+      }}
+      fadeProps={{
+        enterOpacity: 1.00,
+        exitOpacity: 0.10
       }}>
       <Card>
         <CardImg top src={baseUrl + campsite.image} alt={campsite.name} />
@@ -122,7 +126,7 @@ function RenderComments({ comments, postComment, campsiteId }) {
         {
           comments.map(comment => {
             return (
-              <Fade in key={comment.id}>
+              <Fade in enterOpacity={1.00} exitOpacity={0.10} key={comment.id}>
                 <div>
                   <p>
                     {comment.text}<br />
